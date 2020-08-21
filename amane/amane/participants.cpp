@@ -32,7 +32,7 @@ void User::enterPassword()
 
 void User::enterFIO()
 {
-	std::cout << "Фамилия Имя Отчество: ";
+	std::cout << "Имя и фамилия: ";
 	bool As = false;
 	while (As != true)
 	{
@@ -64,7 +64,8 @@ void User::enterEmail()
 
 void User::enterPNum()
 {
-	do {
+	while (this->checkPNum() == false)
+	{
 		std::cout << "номер телефона? ";
 		bool As = false;
 		unsigned int count = 0;
@@ -77,8 +78,8 @@ void User::enterPNum()
 			if (count == 4 || count == 7 || count == 10)
 				std::cout << " ";
 			std::cout << key;
-			this->password += key;
+			this->pNum += key;
 		}
 		std::cout << "\n";
-	} while (this->checkPNum() != true);
+	}	
 }

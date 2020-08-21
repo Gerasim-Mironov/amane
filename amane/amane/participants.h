@@ -11,20 +11,19 @@ private:
 
 	bool checkEmail()
 	{
-		for (auto i = this->login.begin(); i != this->login.end(); i++)
+		for (auto i = this->email.begin(); i != this->email.end(); i++)
 		{
-			if (*i != '@')
+			if ((const char)*i == '@')
 				return true;
 		}
 		return false;
 	}
 	bool checkPNum()
 	{
-		for (auto i = this->pNum.begin(); i != this->login.end(); i++)
-			if (*i == '+')
+		for (auto i = this->pNum.begin(); i != this->pNum.end(); i++)
+			if ((const char)*i == '+')
 				return true;
-			else
-				return false;
+		return false;
 	}
 public:
 	void enterLogin();
@@ -47,7 +46,7 @@ public:
 	}
 	std::string getMail()
 	{
-		return this->pNum;
+		return this->email;
 	}
 	std::string getNum()
 	{
@@ -55,7 +54,7 @@ public:
 	}
 };
 
-class Admin
+class Admin: public User
 {
 
 };

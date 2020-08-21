@@ -1,5 +1,7 @@
 ﻿#include"aqua.h"
 #include"participants.h"
+#include"menu.h"
+
 
 int main()
 {
@@ -7,14 +9,6 @@ int main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 #pragma endregion
-	User amane;
-	amane.enterLogin();
-	amane.enterPassword();
-	amane.enterFIO();
-	amane.enterEmail();
-	amane.enterPNum();
 	
-	std::cout << amane.getPassword();
-	std::cout << amane.getNum();
 	return 0x29a;
 }
