@@ -16,7 +16,7 @@ void menu::entrance()
 void menu::logIn()
 {
 	system("cls");
-	Ul.enterLogin();
+	mt.enterLogin();
 	std::ifstream re("UserLogs.txt");
 	if (re.is_open())
 	{
@@ -25,14 +25,14 @@ void menu::logIn()
 		{
 			ruby = "";
 			std::getline(re, ruby);
-			if (ruby == Ul.getLogin())
+			if (ruby == mt.getLogin())
 			{
 				std::cout << "Пользователь с таким именем уже зарегестрирован, войти?\n1->да\n2->нет\n";
 				char key = _getch();
 				switch (key)
 				{
 				case '1': signIn(); break;
-				case '2': Ul.enterLogin(); break;
+				case '2': mt.enterLogin(); break;
 				default: {std::cout << "\n"; key = _getch(); }
 				}
 			}
@@ -40,26 +40,38 @@ void menu::logIn()
 	}
 	std::ofstream wr("UserLogs.txt", std::ios::app);
 	wr << "-------------------------------------\n";
-	wr << Ul.getLogin();
+	wr << mt.getLogin();
 
-	Ul.enterPassword();
-	wr << Ul.getPassword();
+	mt.enterPassword();
+	wr << mt.getPassword();
 
-	Ul.enterFIO();
-	wr << Ul.getName();
+	mt.enterFIO();
+	wr << mt.getName();
 
-	Ul.enterEmail();
-	wr << Ul.getMail();
+	mt.enterEmail();
+	wr << mt.getMail();
 
-	Ul.enterPNum();
-	wr << Ul.getNum();
+	mt.enterPNum();
+	wr << mt.getNum();
 	wr<< "-------------------------------------\n";
 }
 
 void menu::signIn()
 {
 	system("cls");
-	Ul.enterLogin();
+	mt.enterLogin();
+	if (mt.getLogin().c_str() == "Admin")
+	{
+		while (true)
+		{
+			mt.enterPassword();
+			if (mt.getPassword().c_str() == "HiddenLeaf")
+			{
+				mt.changleAngle();
+				this->intermediate();
+			}
+		}
+	}
 	std::ifstream re("UserLogs.txt");
 	if (re.is_open())
 	{
@@ -68,18 +80,18 @@ void menu::signIn()
 		{
 			ruby = "";
 			std::getline(re, ruby);
-			if (Ul.getLogin() == ruby)
+			if (mt.getLogin() == ruby)
 			{
 
-				Ul.enterPassword();
+				mt.enterPassword();
 				while (!re.eof())
 				{
 					std::string slick="";
 					std::getline(re, slick);
-					if (Ul.getPassword() == slick)
+					if (mt.getPassword() == slick)
 					{
-						//скоро будет
-						std::cout << "извини, скоро мы вернём твой акк...\n";
+						system("cls");
+						this->intermediate();
 					}
 				}
 			}
@@ -87,4 +99,34 @@ void menu::signIn()
 	}
 	std::cout << "Мы тебя не помним\n";
 	this->entrance();
+}
+
+void menu::intermediate()
+{
+	if (mt.getToKnow() == false)
+	{
+		std::cout << "1->пройти тесты\n2->аккаунт\n3->уйти\n";
+		char ch = _getch();
+		switch (ch)
+		{
+		case '1': {}break;
+		case '2': {}break;
+		case '3': {exit(EXIT_SUCCESS); }
+		default: {system("cls"); this->intermediate(); }
+		}
+	}
+	else
+	{
+		std::cout << "1->пройти тест\n2->создать тест\n3->просмотреть статистику\n4->аккаунт\n5->уйти\n";
+		char ch = _getch();
+		switch (ch)
+		{
+		case '1': {}break;
+		case '2': {}break;
+		case '3': {}break;
+		case '4': {}break;
+		case '5': {exit(EXIT_SUCCESS); }
+		default: {system("cls"); this->intermediate(); }
+		}
+	}
 }

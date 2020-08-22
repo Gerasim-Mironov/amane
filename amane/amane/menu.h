@@ -5,12 +5,13 @@
 class menu
 {
 private:
-	User Ul;
-	Admin mt;
+	User mt;
 public:
 	menu() = default;
 	void entrance();
 
 	void logIn();
 	void signIn();
+
+	void intermediate();
 };

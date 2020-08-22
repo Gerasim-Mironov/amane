@@ -9,6 +9,8 @@ private:
 	std::string email;
 	std::string pNum;
 
+	bool Admin=false;
+
 	bool checkEmail()
 	{
 		for (auto i = this->email.begin(); i != this->email.end(); i++)
@@ -32,6 +34,8 @@ public:
 	void enterEmail();
 	void enterPNum();
 
+	void accountSettings();
+
 	std::string getLogin()
 	{
 		return this->login;
@@ -52,9 +56,16 @@ public:
 	{
 		return this->pNum;
 	}
-};
 
-class Admin: public User
-{
-
+	bool getToKnow()
+	{
+		return this->Admin;
+	}
+	void changleAngle()
+	{
+		if (this->getToKnow() == true)
+			this->Admin = false;
+		else
+			this->Admin = true;
+	}
 };
