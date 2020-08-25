@@ -27,6 +27,9 @@
     <ClCompile Include="participants.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="tests.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aqua.h">
@@ -38,9 +41,15 @@
     <ClInclude Include="participants.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="tests.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="UserLogs.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="UserStats.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
   </ItemGroup>

@@ -109,8 +109,8 @@ void menu::intermediate()
 		char ch = _getch();
 		switch (ch)
 		{
-		case '1': {}break;
-		case '2': {}break;
+		case '1': {sl.testMe(); this->intermediate(); }break;
+		case '2': {mt.accountSettings(); this->intermediate(); }break;
 		case '3': {exit(EXIT_SUCCESS); }
 		default: {system("cls"); this->intermediate(); }
 		}
@@ -121,10 +121,10 @@ void menu::intermediate()
 		char ch = _getch();
 		switch (ch)
 		{
-		case '1': {}break;
-		case '2': {}break;
-		case '3': {}break;
-		case '4': {}break;
+		case '1': {sl.testMe(); this->intermediate(); }break;
+		case '2': {sl.makeTest(); this->intermediate(); }break;
+		case '3': {sl.checkStats(); this->intermediate(); }break;
+		case '4': {mt.accountSettings(); this->intermediate(); }break;
 		case '5': {exit(EXIT_SUCCESS); }
 		default: {system("cls"); this->intermediate(); }
 		}
