@@ -1,5 +1,6 @@
 #pragma once
 #include"aqua.h"
+
 class User
 {
 private:
@@ -9,6 +10,7 @@ private:
 	std::string email;
 	std::string pNum;
 
+	char* filePath;
 	bool Admin=false;
 
 	bool checkEmail()
@@ -35,6 +37,8 @@ public:
 	void enterPNum();
 
 	void accountSettings();
+
+	char* getRoute();
 
 	std::string getLogin()
 	{

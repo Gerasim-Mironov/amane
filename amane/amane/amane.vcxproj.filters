@@ -41,14 +41,11 @@
     <ClInclude Include="participants.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="tests.hpp">
+    <ClInclude Include="tests.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="UserLogs.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
     <Text Include="UserStats.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>

@@ -1,4 +1,5 @@
 #include "participants.h"
+#pragma warning(disable 4996)
 
 void User::enterLogin()
 {
@@ -133,6 +134,23 @@ void User::accountSettings()
 		case '2': continue;
 		}
 	}
-	//надо как-то сохранить
+	
+	std::ofstream wr;
+	wr.open(this->getRoute());
+	wr << this->login << "\n";
+	wr << this->password << "\n";
+	wr << this->fio << "\n";
+	wr << this->email << "\n";
+	wr << this->pNum << "\n";
+	wr.close();
 	std::cout << "изменения сохранены\n";
+}
+
+char* User::getRoute()
+{
+	char fPath[256];
+	strcpy(fPath, login.c_str());
+	strcat(fPath, ".txt");
+
+	return fPath;
 }

@@ -1,6 +1,6 @@
 #include "menu.h"
 
-void menu::entrance()
+void Menu::entrance()
 {
 	std::cout << "1->зарегистрироваться\n2->войти\n3->уйти\n";
 	char ch = _getch();
@@ -13,11 +13,12 @@ void menu::entrance()
 	}
 }
 
-void menu::logIn()
+void Menu::logIn()
 {
 	system("cls");
 	mt.enterLogin();
-	std::ifstream re("UserLogs.txt");
+	std::ifstream re;
+	re.open(mt.getRoute());
 	if (re.is_open())
 	{
 		std::string ruby;
@@ -38,8 +39,10 @@ void menu::logIn()
 			}
 		}
 	}
-	std::ofstream wr("UserLogs.txt", std::ios::app);
-	wr << "-------------------------------------\n";
+	re.close();
+
+	std::ofstream wr(mt.getRoute());
+	
 	wr << mt.getLogin();
 
 	mt.enterPassword();
@@ -53,10 +56,9 @@ void menu::logIn()
 
 	mt.enterPNum();
 	wr << mt.getNum();
-	wr<< "-------------------------------------\n";
 }
 
-void menu::signIn()
+void Menu::signIn()
 {
 	system("cls");
 	mt.enterLogin();
@@ -72,7 +74,7 @@ void menu::signIn()
 			}
 		}
 	}
-	std::ifstream re("UserLogs.txt");
+	std::ifstream re(mt.getRoute());
 	if (re.is_open())
 	{
 		std::string ruby;
@@ -82,7 +84,6 @@ void menu::signIn()
 			std::getline(re, ruby);
 			if (mt.getLogin() == ruby)
 			{
-
 				mt.enterPassword();
 				while (!re.eof())
 				{
@@ -101,7 +102,7 @@ void menu::signIn()
 	this->entrance();
 }
 
-void menu::intermediate()
+void Menu::intermediate()
 {
 	if (mt.getToKnow() == false)
 	{

@@ -1,15 +1,15 @@
 #pragma once
 #include"aqua.h"
 #include"participants.h"
-#include"tests.hpp"
+#include"tests.h"
 
-class menu
+class Menu
 {
 private:
 	User mt;
 	Test sl;
 public:
-	menu() = default;
+	Menu() = default;
 	void entrance();
 
 	void logIn();

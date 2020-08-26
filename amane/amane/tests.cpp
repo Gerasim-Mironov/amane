@@ -1,14 +1,10 @@
-#include "tests.hpp"
+#include "tests.h"
 
-void Test::testMe()
+bool Answear::checkAnswear()
 {
 	
 }
 
-void Test::saveResults()
-{
-}
-
-void Test::makeTest()
+void Answear::addOptions()
 {
 }
