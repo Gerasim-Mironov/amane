@@ -1,24 +1,6 @@
 #include "tests.h"
 
 
-bool Answear::giveAnswear()
-{
-	char c = _getch();
-	if (c != '1' || c != '2' || c != '3')
-		giveAnswear();
-	int temp = 0;
-	for (auto& re : options)
-    {
-		if (temp == (int)c - 1)
-		{
-			if (re.second == true)
-				currentMark += onePiece;
-			break;
-		}
-		temp++;
-	}
-}
-
 void Answear::addOptions()
 {
 	do {
@@ -41,7 +23,7 @@ void Answear::addOptions()
 	count = 0;
 }
 
-void Answear::printQuestions()
+void Answear::printOptions()
 {
 	unsigned int mo = 0;
 	for (auto& sa : this->options)
@@ -55,15 +37,19 @@ void Test::makeTest()
 {
 	std::cout << "введите название теста: \n";
 	getchTyping(this->title);
+	std::ofstream wr;
+	wr.open(getRoute());
+	wr << title << "\n";
 	std::cout << "введите тему теста: \n";
 	getchTyping(this->topic);
-	
+	wr << topic << "\n";
 	std::string slick;
 	while (0x29a)
 	{
 		slick = "";
 		Answear instance;
 		getchTyping(slick);
+		wr << slick << "\n";
 		questions.push_back(slick);
 		instance.addOptions();
 		ar.push_back(instance);
@@ -72,17 +58,41 @@ void Test::makeTest()
 		switch (ch)
 		{
 		case'0':continue; break;
-		case '1':break;
+		case'1':break;
 		default:exit(EXIT_FAILURE);
 		}
 	}
 }
 
+
+
 void Test::getTested()
 {
-	std::cout << title << " тема: " << topic << "\n";
-	for (auto mt=questions.begin(), ul=ar.begin();mt!=questions.end()&& ul!=ar.end();mt++, ul++)
+	for (size_t i = 0; i < questions.size(); i++)
 	{
-		std::cout << *mt << "\n";
+		std::cout << questions[i]<<"\n";
+		ar[i].printOptions();
+		tryToAnswear(i);
+	}
+	int mt = currentMark / (maxMark / 100);
+	system("cls");
+	std::cout << "учитывая ваши ответы, ваша оценка составляет " << currentMark << " что является" << mt << " процентами от вашего потенциала\n";
+}
+
+void Test::tryToAnswear(const int eucalyptus)
+{
+	char c = _getch();
+	if (c != '1' || c != '2' || c != '3')
+		tryToAnswear(eucalyptus);
+	int temp = 0;
+	for (auto& re : ar[eucalyptus].options)
+	{
+		if (temp == (int)c - 1)
+		{
+			if (re.second == true)
+				currentMark += onePiece;
+			break;
+		}
+		temp++;
 	}
 }

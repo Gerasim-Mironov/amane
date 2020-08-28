@@ -5,22 +5,21 @@
 class Answear
 {
 private:
-	std::map<std::string, bool> options;
 	unsigned int count = 0;
 public:
-	const int maxMark = 12;
-	int currentMark;
-	float onePiece;
-
-	bool giveAnswear();
+	std::map<std::string, bool> options;
 
 	void addOptions();
-	void printQuestions();
+	void printOptions();
 };
 
 class Test
 {
 private:
+	const int maxMark = 12;
+	int currentMark;
+	float onePiece;
+
 	std::vector<Answear>ar;
 	std::vector<std::string> questions;
 
@@ -30,6 +29,8 @@ public:
 	void makeTest();
 
 	void getTested();
+	void tryToAnswear(const int);
+	void saveInFile();
 	char* getRoute()
 	{
 		char fPath[256];
