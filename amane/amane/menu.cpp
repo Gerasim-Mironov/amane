@@ -41,7 +41,8 @@ void Menu::logIn()
 	}
 	re.close();
 
-	std::ofstream wr(mt.getRoute());
+	std::ofstream wr;
+	wr.open(mt.getRoute());
 	
 	wr << mt.getLogin();
 
@@ -56,6 +57,10 @@ void Menu::logIn()
 
 	mt.enterPNum();
 	wr << mt.getNum();
+	wr.close();
+
+	system("cls");
+	this->intermediate();
 }
 
 void Menu::signIn()
@@ -74,7 +79,8 @@ void Menu::signIn()
 			}
 		}
 	}
-	std::ifstream re(mt.getRoute());
+	std::ifstream re;
+	re.open(mt.getRoute());
 	if (re.is_open())
 	{
 		std::string ruby;
@@ -110,7 +116,7 @@ void Menu::intermediate()
 		char ch = _getch();
 		switch (ch)
 		{
-		case '1': {sl.testMe(); this->intermediate(); }break;
+		case '1': {sl.getTested(mt); this->intermediate(); }break;
 		case '2': {mt.accountSettings(); this->intermediate(); }break;
 		case '3': {exit(EXIT_SUCCESS); }
 		default: {system("cls"); this->intermediate(); }
@@ -122,9 +128,9 @@ void Menu::intermediate()
 		char ch = _getch();
 		switch (ch)
 		{
-		case '1': {sl.testMe(); this->intermediate(); }break;
+		case '1': {sl.getTested(mt); this->intermediate(); }break;
 		case '2': {sl.makeTest(); this->intermediate(); }break;
-		case '3': {sl.checkStats(); this->intermediate(); }break;
+		case '3': {system("type UserStats.txt"); this->intermediate(); }break;
 		case '4': {mt.accountSettings(); this->intermediate(); }break;
 		case '5': {exit(EXIT_SUCCESS); }
 		default: {system("cls"); this->intermediate(); }

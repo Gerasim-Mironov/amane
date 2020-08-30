@@ -54,7 +54,7 @@ void Test::makeTest()
 		instance.addOptions();
 		ar.push_back(instance);
 		std::cout << "продолжить?\n 0-да\n1->нет\n";
-		char ch = getch();
+		char ch = _getch();
 		switch (ch)
 		{
 		case'0':continue; break;
@@ -66,7 +66,7 @@ void Test::makeTest()
 
 
 
-void Test::getTested()
+void Test::getTested(User berlioz)
 {
 	for (size_t i = 0; i < questions.size(); i++)
 	{
@@ -77,6 +77,16 @@ void Test::getTested()
 	int mt = currentMark / (maxMark / 100);
 	system("cls");
 	std::cout << "учитывая ваши ответы, ваша оценка составляет " << currentMark << " что является" << mt << " процентами от вашего потенциала\n";
+	std::ofstream wr("UserStats.txt");
+	if (!wr.is_open())
+	{
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		wr << "пользователь " << berlioz.getName() << " прошёл тест '" << title << "' с результатом " << currentMark << " баллов, что является " << mt << " процентами из" << maxMark << "\n\n";
+	}
+	wr.close();
 }
 
 void Test::tryToAnswear(const int eucalyptus)
@@ -94,5 +104,30 @@ void Test::tryToAnswear(const int eucalyptus)
 			break;
 		}
 		temp++;
+	}
+}
+
+void Test::loadTest()
+{
+	std::ifstream re;
+	re.open(getRoute());
+	if (re)
+	{
+		int toulouse = 0;
+		std::string scar;
+		while (!re.eof())
+		{
+			scar = "";
+			std::getline(re, scar);
+			if (toulouse - 1 == 0)
+			{
+				title = scar;
+			}
+			if (toulouse - 2 == 0)
+			{
+				topic = scar;
+			}
+			toulouse++;
+		}
 	}
 }

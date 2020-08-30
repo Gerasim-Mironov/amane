@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning(disable: 4996)
 #include"aqua.h"
 #include"participants.h"
 
@@ -28,9 +29,9 @@ private:
 public:
 	void makeTest();
 
-	void getTested();
+	void getTested(User);
 	void tryToAnswear(const int);
-	void saveInFile();
+	void loadTest();
 	char* getRoute()
 	{
 		char fPath[256];
@@ -40,3 +41,15 @@ public:
 		return fPath;
 	}
 };
+
+static void getchTyping(std::string mt)
+{
+	char c;
+	do
+	{
+		c = _getch();
+		std::cout << c;
+		mt += c;
+	} while (c != 13);
+	std::cout << "\n";
+}

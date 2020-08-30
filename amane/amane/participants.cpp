@@ -1,5 +1,5 @@
 #include "participants.h"
-#pragma warning(disable 4996)
+#pragma warning(disable: 4996)
 
 void User::enterLogin()
 {
@@ -87,52 +87,45 @@ void User::enterPNum()
 
 void User::accountSettings()
 {
+	system("cls");
 	std::cout << "ваш пароль: " << this->password << "\n";
 	std::cout << "1->изменить\n2->оставить\n";
-	char ch = _getch();
-	while (ch != '1' || ch != '2')
+	char ch = getchar();
+	switch (ch)
 	{
-		switch (ch)
-		{
-		case '1': {this->enterPassword(); }break;
-		case '2': continue;
-		}
+	case '1': this->enterPassword(); break;
+	case '2':break;
+	default: {std::cout << "Ты допустил фатальную ошибку\n";Sleep(2500); exit(EXIT_FAILURE);}
 	}
 
 	std::cout << "\nваше имя: " << this->fio << "\n";
 	std::cout << "1->изменить\n2->оставить\n";
-	ch = _getch();
-	while (ch != '1' || ch != '2')
+	ch = getchar();
+	switch (ch)
 	{
-		switch (ch)
-		{
-		case '1': {this->enterFIO(); }break;
-		case '2': continue;
-		}
+	case '1': this->enterFIO(); break;
+	case '2':break;
+	default: {std::cout << "Ты допустил фатальную ошибку\n"; Sleep(2500); exit(EXIT_FAILURE); }
 	}
 
 	std::cout << "\nваша почта: " << this->email << "\n";
 	std::cout << "1->изменить\n2->оставить\n";
-	ch = _getch();
-	while (ch != '1' || ch != '2')
+	ch = getchar();
+	switch (ch)
 	{
-		switch (ch)
-		{
-		case '1': {this->enterEmail(); }break;
-		case '2': continue;
-		}
+	case '1': this->enterEmail(); break;
+	case '2':break;
+	default: {std::cout << "Ты допустил фатальную ошибку\n"; Sleep(2500); exit(EXIT_FAILURE); }
 	}
 
 	std::cout << "\nваш номер телефона: " << this->pNum << "\n";
 	std::cout << "1->изменить\n2->оставить\n";
-	ch = _getch();
-	while (ch != '1' || ch != '2')
+	ch = getchar();
+	switch (ch)
 	{
-		switch (ch)
-		{
-		case '1': {this->enterPNum(); }break;
-		case '2': continue;
-		}
+	case '1': this->enterPNum(); break;
+	case '2':break;
+	default: {std::cout << "Ты допустил фатальную ошибку\n"; Sleep(2500); exit(EXIT_FAILURE); }
 	}
 	
 	std::ofstream wr;

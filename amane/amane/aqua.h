@@ -10,16 +10,4 @@
 #include<conio.h>
 #include<Windows.h>
 
-void getchTyping(std::string mt)
-{
-	char c;
-	while (c != 13)
-	{
-		c = _getch();
-		std::cout << c;
-		mt += c;
-	}
-	std::cout << "\n";
-}
-
 #endif
