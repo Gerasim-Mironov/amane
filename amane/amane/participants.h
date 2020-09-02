@@ -10,7 +10,7 @@ private:
 	std::string email;
 	std::string pNum;
 
-	char* filePath;
+	std::string filePath;
 	bool Admin=false;
 
 	bool checkEmail()
@@ -38,7 +38,7 @@ public:
 
 	void accountSettings();
 
-	char* getRoute();
+	std::string getRoute();
 
 	std::string getLogin()
 	{

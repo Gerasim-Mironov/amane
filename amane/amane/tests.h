@@ -6,7 +6,7 @@
 class Answear
 {
 private:
-	unsigned int count = 0;
+	unsigned int count = 1;
 public:
 	std::map<std::string, bool> options;
 
@@ -26,20 +26,26 @@ private:
 
 	std::string topic;
 	std::string title;
+
+	std::string filePath;
 public:
 	void makeTest();
 
 	void getTested(User);
 	void tryToAnswear(const int);
-	void loadTest();
-	char* getRoute()
+	void loadTest(std::string);
+	std::string getRoute()
 	{
-		char fPath[256];
-		strcpy(fPath, title.c_str());
-		strcat(fPath, "TEST.txt");
+		for (auto i = title.begin(); i != title.end(); i++)
+		{
+			if (*i != '\r')
+				filePath.push_back((const char)*i);
+		}
+		filePath += ".txt";
 
-		return fPath;
+		return filePath;
 	}
+	
 };
 
 static void getchTyping(std::string mt)
@@ -53,3 +59,4 @@ static void getchTyping(std::string mt)
 	} while (c != 13);
 	std::cout << "\n";
 }
+

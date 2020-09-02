@@ -90,42 +90,58 @@ void User::accountSettings()
 	system("cls");
 	std::cout << "ваш пароль: " << this->password << "\n";
 	std::cout << "1->изменить\n2->оставить\n";
-	char ch = getchar();
-	switch (ch)
+	char mz = _getch();
+	if (mz == '1')
+		this->enterPassword();
+	else if (mz == '2')
+		Sleep(0);
+	else
 	{
-	case '1': this->enterPassword(); break;
-	case '2':break;
-	default: {std::cout << "Ты допустил фатальную ошибку\n";Sleep(2500); exit(EXIT_FAILURE);}
+		std::cout << "Ты допустил фатальную ошибку\n"; 
+		Sleep(2500); 
+		exit(EXIT_FAILURE);
 	}
 
 	std::cout << "\nваше имя: " << this->fio << "\n";
 	std::cout << "1->изменить\n2->оставить\n";
-	ch = getchar();
-	switch (ch)
+	mz = _getch();
+	if (mz == '1')
+		this->enterFIO();
+	else if (mz == '2')
+		Sleep(0);
+	else
 	{
-	case '1': this->enterFIO(); break;
-	case '2':break;
-	default: {std::cout << "Ты допустил фатальную ошибку\n"; Sleep(2500); exit(EXIT_FAILURE); }
+		std::cout << "Ты допустил фатальную ошибку\n";
+		Sleep(2500);
+		exit(EXIT_FAILURE);
 	}
 
 	std::cout << "\nваша почта: " << this->email << "\n";
 	std::cout << "1->изменить\n2->оставить\n";
-	ch = getchar();
-	switch (ch)
+	mz = _getch();
+	if (mz == '1')
+		this->enterEmail();
+	else if (mz == '2')
+		Sleep(0);
+	else
 	{
-	case '1': this->enterEmail(); break;
-	case '2':break;
-	default: {std::cout << "Ты допустил фатальную ошибку\n"; Sleep(2500); exit(EXIT_FAILURE); }
+		std::cout << "Ты допустил фатальную ошибку\n";
+		Sleep(2500);
+		exit(EXIT_FAILURE);
 	}
 
 	std::cout << "\nваш номер телефона: " << this->pNum << "\n";
 	std::cout << "1->изменить\n2->оставить\n";
-	ch = getchar();
-	switch (ch)
+	mz = _getch();
+	if (mz == '1')
+		this->enterPNum();
+	else if (mz == '2')
+		Sleep(0);
+	else
 	{
-	case '1': this->enterPNum(); break;
-	case '2':break;
-	default: {std::cout << "Ты допустил фатальную ошибку\n"; Sleep(2500); exit(EXIT_FAILURE); }
+		std::cout << "Ты допустил фатальную ошибку\n";
+		Sleep(2500);
+		exit(EXIT_FAILURE);
 	}
 	
 	std::ofstream wr;
@@ -137,13 +153,18 @@ void User::accountSettings()
 	wr << this->pNum << "\n";
 	wr.close();
 	std::cout << "изменения сохранены\n";
+	system("cls");
 }
 
-char* User::getRoute()
+std::string User::getRoute()
 {
-	char fPath[256];
-	strcpy(fPath, login.c_str());
-	strcat(fPath, ".txt");
+	filePath = "";
+	for (auto i=login.begin() ; i != login.end(); i++)
+	{
+		if(*i!='\r')
+			filePath.push_back((const char)*i);
+	}
+	filePath += ".txt";
 
-	return fPath;
+	return filePath;
 }

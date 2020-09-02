@@ -7,8 +7,8 @@ int main()
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 #pragma endregion
-	Menu berlioz;
-	berlioz.entrance();
+	Menu vh;
+	vh.entrance();
 
 	return EXIT_SUCCESS;
 }

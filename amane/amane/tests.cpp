@@ -7,6 +7,7 @@ void Answear::addOptions()
 		bool Ul;
 		std::cout << "введите вариант ответа:\n";
 		std::string ruby;
+		ruby += count; ruby += '.';
 		getchTyping(ruby);
 		std::cout << "это правильный ответ?\n 1-нет\n0->да\n";
 		char ch = _getch();
@@ -19,17 +20,15 @@ void Answear::addOptions()
 
 		options.insert(std::make_pair(ruby, Ul));
 		count++;
-	} while (count < 3);
-	count = 0;
+	} while (count < 4);
+	count = 1;
 }
 
 void Answear::printOptions()
 {
-	unsigned int mo = 0;
 	for (auto& sa : this->options)
 	{
-		std::cout << mo << "." << sa.first << "\n";
-		mo++;
+		std::cout << sa.first << "\n";
 	}
 }
 
@@ -52,6 +51,8 @@ void Test::makeTest()
 		wr << slick << "\n";
 		questions.push_back(slick);
 		instance.addOptions();
+		for (auto sa : instance.options)
+			wr << sa.first << "\n";
 		ar.push_back(instance);
 		std::cout << "продолжить?\n 0-да\n1->нет\n";
 		char ch = _getch();
@@ -107,27 +108,9 @@ void Test::tryToAnswear(const int eucalyptus)
 	}
 }
 
-void Test::loadTest()
+void Test::loadTest(std::string name)
 {
-	std::ifstream re;
-	re.open(getRoute());
-	if (re)
-	{
-		int toulouse = 0;
-		std::string scar;
-		while (!re.eof())
-		{
-			scar = "";
-			std::getline(re, scar);
-			if (toulouse - 1 == 0)
-			{
-				title = scar;
-			}
-			if (toulouse - 2 == 0)
-			{
-				topic = scar;
-			}
-			toulouse++;
-		}
-	}
+	std::ifstream in;
+	in.open(name);
+	
 }

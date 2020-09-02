@@ -40,24 +40,26 @@ void Menu::logIn()
 		}
 	}
 	re.close();
+	if (mt.getToKnow() == false)
+	{
+		std::ofstream wr;
+		wr.open(mt.getRoute());
 
-	std::ofstream wr;
-	wr.open(mt.getRoute());
-	
-	wr << mt.getLogin();
+		wr << mt.getLogin();
 
-	mt.enterPassword();
-	wr << mt.getPassword();
+		mt.enterPassword();
+		wr << mt.getPassword();
 
-	mt.enterFIO();
-	wr << mt.getName();
+		mt.enterFIO();
+		wr << mt.getName();
 
-	mt.enterEmail();
-	wr << mt.getMail();
+		mt.enterEmail();
+		wr << mt.getMail();
 
-	mt.enterPNum();
-	wr << mt.getNum();
-	wr.close();
+		mt.enterPNum();
+		wr << mt.getNum();
+		wr.close();
+	}
 
 	system("cls");
 	this->intermediate();
@@ -67,14 +69,15 @@ void Menu::signIn()
 {
 	system("cls");
 	mt.enterLogin();
-	if (mt.getLogin().c_str() == "Admin")
+	if (mt.getLogin() == "Admin\r")
 	{
 		while (true)
 		{
 			mt.enterPassword();
-			if (mt.getPassword().c_str() == "HiddenLeaf")
+			if (mt.getPassword() == "HiddenLeaf\r")
 			{
 				mt.changleAngle();
+				system("cls");
 				this->intermediate();
 			}
 		}
@@ -88,7 +91,7 @@ void Menu::signIn()
 		{
 			ruby = "";
 			std::getline(re, ruby);
-			if (mt.getLogin() == ruby)
+			if (ruby==mt.getLogin())
 			{
 				mt.enterPassword();
 				while (!re.eof())
