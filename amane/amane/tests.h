@@ -60,3 +60,13 @@ static void getchTyping(std::string mt)
 	std::cout << "\n";
 }
 
+static bool checkStr(std::string sa)
+{
+	for (auto i = sa.begin(); i != sa.end();i++)
+	{
+		if ((const char)*i == '1' || (const char)*i == '2' || (const char)*i == '3')
+			return true;
+		else
+			return false;
+	}
+}

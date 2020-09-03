@@ -36,12 +36,20 @@ void Test::makeTest()
 {
 	std::cout << "введите название теста: \n";
 	getchTyping(this->title);
+	
+	std::ofstream temp;
+	temp.open("TestRoots.txt", std::ios::app);
+	temp << getRoute()<<"\n";
+	temp.close();
+	
 	std::ofstream wr;
 	wr.open(getRoute());
 	wr << title << "\n";
+	
 	std::cout << "введите тему теста: \n";
 	getchTyping(this->topic);
 	wr << topic << "\n";
+	
 	std::string slick;
 	while (0x29a)
 	{
@@ -54,13 +62,14 @@ void Test::makeTest()
 		for (auto sa : instance.options)
 			wr << sa.first << "\n";
 		ar.push_back(instance);
+		
 		std::cout << "продолжить?\n 0-да\n1->нет\n";
 		char ch = _getch();
 		switch (ch)
 		{
-		case'0':continue; break;
+		case'0':Sleep(0); break;
 		case'1':break;
-		default:exit(EXIT_FAILURE);
+		default:wr.close(); exit(EXIT_FAILURE);
 		}
 	}
 }
@@ -112,5 +121,30 @@ void Test::loadTest(std::string name)
 {
 	std::ifstream in;
 	in.open(name);
-	
+
+	ptrdiff_t berlioz = 0;
+	std::string mt;
+	while (!in.eof())
+	{
+		mt = "";
+		std::getline(in, mt);
+		
+		if(berlioz==0)
+		{
+			title = mt;
+		}
+		if(berlioz==1)
+		{
+			topic = mt;
+		}
+
+		if(berlioz>1)
+		{
+			if(checkStr(mt)==true)
+			{
+				
+			}
+		}
+		++berlioz;
+	}
 }

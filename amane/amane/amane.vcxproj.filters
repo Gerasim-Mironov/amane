@@ -49,5 +49,8 @@
     <Text Include="UserStats.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
+    <Text Include="TetsRoots.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
   </ItemGroup>
 </Project>
