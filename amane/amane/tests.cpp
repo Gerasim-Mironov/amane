@@ -1,150 +1,204 @@
 #include "tests.h"
 
-
-void Answear::addOptions()
+void testNode::printNode()
 {
-	do {
-		bool Ul;
-		std::cout << "введите вариант ответа:\n";
-		std::string ruby;
-		ruby += count; ruby += '.';
-		getchTyping(ruby);
-		std::cout << "это правильный ответ?\n 1-нет\n0->да\n";
-		char ch = _getch();
-		switch (ch)
-		{
-		case '1': Ul = false; break;
-		case '0': Ul = true; break;
-		default:ch = _getch();
-		}
-
-		options.insert(std::make_pair(ruby, Ul));
-		count++;
-	} while (count < 4);
-	count = 1;
+	std::cout << question << "\n";
+	for (size_t i = 0; i < 3; i++)
+	{
+		std::cout << options[i] << "\n";
+	}
 }
 
-void Answear::printOptions()
+void testNode::setQuestion(std::string sa)
 {
-	for (auto& sa : this->options)
+	question = sa;
+}
+void testNode::setOption(std::string sa, const int num)
+{
+	options[num] = sa;
+}
+void testNode::setTruth(bool sa, const int num)
+{
+	truth[num] = sa;
+}
+
+std::string testNode::getQuestion()
+{
+	return question;
+}
+std::string testNode::getOption(const int dv)
+{
+	return options[dv];
+}
+bool testNode::getTruth(const int dv)
+{
+	return truth[dv];
+}
+
+
+void Test::getTested(User ul)
+{
+	currentMark = 0;
+	onePiece = as.size()/maxMark;
+
+	for (size_t i = 1; i!=as.size(); i++)
 	{
-		std::cout << sa.first << "\n";
+		system("cls");
+
+		as[i].printNode();
+
+		char mz = _getch();
+		if (mz == '1' || mz == '2' || mz == '3')
+		{
+			if (as[i].truth[static_cast<int>(mz)-48] == true)
+			{
+				currentMark += onePiece;
+			}
+		}
+		else
+		{
+			std::cout << "не тот вариант- баллов не получишь\n";
+		}
 	}
+
+	std::ofstream wr;
+	wr.open("UserStats.txt", std::ios::app);
+	wr << "пользователь" << ul.getLogin() << " получил" << currentMark << " баллов, что является" << currentMark / maxMark * 100
+		<<"процентами от его потенциала в тесте "<<title<<" по теме "<<topic<<"\n";
+	wr.close();
 }
 
 void Test::makeTest()
 {
-	std::cout << "введите название теста: \n";
-	getchTyping(this->title);
-	
-	std::ofstream temp;
-	temp.open("TestRoots.txt", std::ios::app);
-	temp << getRoute()<<"\n";
-	temp.close();
-	
-	std::ofstream wr;
-	wr.open(getRoute());
-	wr << title << "\n";
-	
-	std::cout << "введите тему теста: \n";
-	getchTyping(this->topic);
-	wr << topic << "\n";
-	
-	std::string slick;
 	while (0x29a)
 	{
-		slick = "";
-		Answear instance;
-		getchTyping(slick);
-		wr << slick << "\n";
-		questions.push_back(slick);
-		instance.addOptions();
-		for (auto sa : instance.options)
-			wr << sa.first << "\n";
-		ar.push_back(instance);
-		
-		std::cout << "продолжить?\n 0-да\n1->нет\n";
+		testNode toulouse;
+		std::string mari = "";
+		std::cout << "название: ";
+		std::cin >> mari;
+		title = mari;
+
+		mari = "";
+
+		std::cout << "тема: ";
+		std::cin.get();
+		std::cin >> mari;
+		topic = mari;
+
+		mari = "";
+
+		std::cout << "введите вопрос:\n";
+		std::cin >> mari;
+		toulouse.setQuestion(mari);
+
+		for (size_t i = 0; i < 3; i++)
+		{
+			mari = "";
+			mari += (const char)&i;
+			mari += '.';
+
+			std::string temp;
+			std::cout << "введите вариант ответа:\n";
+			std::cin >> temp;
+			mari += temp;
+			toulouse.setOption(mari, i);
+
+			std::cout << "он правильный?.\n1->нет\n0->да\n";
+			char key = _getch();
+			switch (key)
+			{
+			case'1':
+			{
+				toulouse.setTruth(false, i);
+			}break;
+			case '0':
+			{
+				toulouse.setTruth(true, i);
+			}break;
+			default:exit(3);
+			}
+		}
+		as.push_back(toulouse);
+		std::cout << "это всё?.\n1->да\n0->нет\n";
 		char ch = _getch();
 		switch (ch)
 		{
-		case'0':Sleep(0); break;
-		case'1':break;
-		default:wr.close(); exit(EXIT_FAILURE);
+		case'1':
+		{
+			std::ofstream wr;
+			wr.open("TestRoots.txt", std::ios::app);
+			wr << getRoute() << "\n";
+			wr.close();
+			return;
+		}break;
+		case '0':
+		{
+			continue;
+		}break;
+		default:exit(3);
 		}
 	}
 }
 
-
-
-void Test::getTested(User berlioz)
+bool Test::saveTest()noexcept
 {
-	for (size_t i = 0; i < questions.size(); i++)
+	std::ofstream wr;
+	wr.open(getRoute());
+	wr << title << "\n";
+	wr << topic << "\n\n";
+	for (size_t i = 0; i < as.size(); i++)
 	{
-		std::cout << questions[i]<<"\n";
-		ar[i].printOptions();
-		tryToAnswear(i);
+		wr << as[i].getQuestion() << "\n";
+		wr << as[i].getOption(0) << " " << as[i].getTruth(0)<<"\n";
+		wr << as[i].getOption(1) << " " << as[i].getTruth(1) << "\n";
+		wr << as[i].getOption(2) << " " << as[i].getTruth(2) << "\n";
 	}
-	int mt = currentMark / (maxMark / 100);
-	system("cls");
-	std::cout << "учитывая ваши ответы, ваша оценка составляет " << currentMark << " что является" << mt << " процентами от вашего потенциала\n";
-	std::ofstream wr("UserStats.txt");
-	if (!wr.is_open())
-	{
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
-		wr << "пользователь " << berlioz.getName() << " прошёл тест '" << title << "' с результатом " << currentMark << " баллов, что является " << mt << " процентами из" << maxMark << "\n\n";
-	}
+
 	wr.close();
+	return true;
 }
 
-void Test::tryToAnswear(const int eucalyptus)
+void Test::loadTest(std::string root)
 {
-	char c = _getch();
-	if (c != '1' || c != '2' || c != '3')
-		tryToAnswear(eucalyptus);
-	int temp = 0;
-	for (auto& re : ar[eucalyptus].options)
-	{
-		if (temp == (int)c - 1)
-		{
-			if (re.second == true)
-				currentMark += onePiece;
-			break;
-		}
-		temp++;
-	}
-}
+	int count = 0;
+	int intCount = 0;
 
-void Test::loadTest(std::string name)
-{
-	std::ifstream in;
-	in.open(name);
-
-	ptrdiff_t berlioz = 0;
-	std::string mt;
-	while (!in.eof())
+	std::ifstream re;
+	re.open(root);
+	while (!re.eof())
 	{
-		mt = "";
-		std::getline(in, mt);
+		testNode temp;
+
+		std::string germ = "";
+		std::getline(re, germ);
 		
-		if(berlioz==0)
+		if (count == 0)
+			title = germ;
+		if (count == 1)
+			topic = germ;
+
+		if (count % 4 == 0)
 		{
-			title = mt;
+			temp.setQuestion(germ);
 		}
-		if(berlioz==1)
+		else
 		{
-			topic = mt;
+			temp.setOption(germ, intCount);
+
+			if (rightOrWrong(germ) == false)
+			{
+				temp.setTruth(false, intCount);
+			}
+			else
+			{
+				temp.setTruth(true, intCount);
+			}
+			intCount++;
 		}
 
-		if(berlioz>1)
-		{
-			if(checkStr(mt)==true)
-			{
-				
-			}
-		}
-		++berlioz;
+		as.push_back(temp);
+		count++;
 	}
+	
+	re.close();
 }

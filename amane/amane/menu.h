@@ -7,7 +7,7 @@ class Menu
 {
 private:
 	User mt;
-	Test sl;
+	std::vector<Test> sl;
 public:
 	Menu() = default;
 	void entrance();
@@ -16,4 +16,5 @@ public:
 	void signIn();
 
 	void intermediate();
+	void loadTests();
 };

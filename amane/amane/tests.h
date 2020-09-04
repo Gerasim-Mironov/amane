@@ -3,70 +3,64 @@
 #include"aqua.h"
 #include"participants.h"
 
-class Answear
-{
-private:
-	unsigned int count = 1;
+class testNode
+{	
+	std::string question;
+	std::string options[3];
 public:
-	std::map<std::string, bool> options;
+	bool truth[3];
 
-	void addOptions();
-	void printOptions();
+	void printNode();
+	void setQuestion(std::string);
+	void setOption(std::string, const int);
+	void setTruth(bool, const int);
+
+	std::string getQuestion();
+	std::string getOption(const int);
+	bool getTruth(const int);
 };
 
 class Test
 {
 private:
+	std::vector<testNode> as;
+
+	std::string title;
+	std::string topic;
+
 	const int maxMark = 12;
 	int currentMark;
 	float onePiece;
-
-	std::vector<Answear>ar;
-	std::vector<std::string> questions;
-
-	std::string topic;
-	std::string title;
-
+	
 	std::string filePath;
 public:
+	void getTested(User);
 	void makeTest();
 
-	void getTested(User);
-	void tryToAnswear(const int);
+	bool saveTest()noexcept;
 	void loadTest(std::string);
+
 	std::string getRoute()
 	{
+		filePath = "";
 		for (auto i = title.begin(); i != title.end(); i++)
 		{
 			if (*i != '\r')
 				filePath.push_back((const char)*i);
 		}
-		filePath += ".txt";
+		filePath += "_TEST.txt";
 
 		return filePath;
 	}
-	
 };
 
-static void getchTyping(std::string mt)
+static bool rightOrWrong(std::string mz)
 {
-	char c;
-	do
+	for (auto i = mz.end(); i != mz.begin(); i--)
 	{
-		c = _getch();
-		std::cout << c;
-		mt += c;
-	} while (c != 13);
-	std::cout << "\n";
-}
-
-static bool checkStr(std::string sa)
-{
-	for (auto i = sa.begin(); i != sa.end();i++)
-	{
-		if ((const char)*i == '1' || (const char)*i == '2' || (const char)*i == '3')
-			return true;
-		else
+		if ((const char)*i == '0')
 			return false;
+		else
+			return true;
 	}
 }
