@@ -45,19 +45,19 @@ void Menu::logIn()
 		std::ofstream wr;
 		wr.open(mt.getRoute());
 
-		wr << mt.getLogin();
+		wr << mt.getLogin()<<"\n";
 
 		mt.enterPassword();
-		wr << mt.getPassword();
+		wr << mt.getPassword() << "\n";
 
 		mt.enterFIO();
-		wr << mt.getName();
+		wr << mt.getName()<<"\n";
 
 		mt.enterEmail();
-		wr << mt.getMail();
+		wr << mt.getMail()<<"\n";
 
 		mt.enterPNum();
-		wr << mt.getNum();
+		wr << mt.getNum()<<"\n";
 		wr.close();
 	}
 
@@ -69,12 +69,12 @@ void Menu::signIn()
 {
 	system("cls");
 	mt.enterLogin();
-	if (mt.getLogin() == "Admin\r")
+	if (mt.getLogin() == "Admin")
 	{
 		while (true)
 		{
 			mt.enterPassword();
-			if (mt.getPassword() == "HiddenLeaf\r")
+			if (mt.getPassword() == "HiddenLeaf")
 			{
 				mt.changleAngle();
 				system("cls");
@@ -113,7 +113,6 @@ void Menu::signIn()
 
 void Menu::intermediate()
 {
-	int num = 0;
 	if (mt.getToKnow() == false)
 	{
 		std::cout << "1->пройти тесты\n2->аккаунт\n3->уйти\n";
@@ -123,9 +122,8 @@ void Menu::intermediate()
 		case '1': 
 		{
 			loadTests();
-			std::cout << "введите номер теста(наобум)\n";
-			sl[num].getTested(mt);
-			num++;
+			sl[chrono].getTested(mt);
+			chrono++;
 			this->intermediate();
 		}break;
 		case '2': {mt.accountSettings(); this->intermediate(); }break;
@@ -142,19 +140,16 @@ void Menu::intermediate()
 		{
 		case '1': {
 			loadTests();
-			
-			sl[num].getTested(mt);
-			num++;
+			sl[chrono].getTested(mt);
+			chrono++;
 			this->intermediate();
 		}break;
 		case '2': {
-			Test temple;
-
 			system("cls");
 			
-			temple.makeTest();
-			temple.saveTest();
-			sl.push_back(temple);
+			sl[chrono].makeTest();
+			sl[chrono].saveTest();
+			
 			
 			system("cls");
 
@@ -187,9 +182,11 @@ void Menu::loadTests()
 
 	std::ifstream re;
 	re.open("TestRoots.txt");
+
+	std::string ruby = "";
 	while (!re.eof())
 	{
-		std::string ruby = "";
+		ruby.clear();
 		std::getline(re, ruby);
 		sl[counter].loadTest(ruby);
 		

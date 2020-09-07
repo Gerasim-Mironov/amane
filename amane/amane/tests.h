@@ -40,9 +40,10 @@ public:
 	bool saveTest()noexcept;
 	void loadTest(std::string);
 
+
 	std::string getRoute()
 	{
-		filePath = "";
+		filePath.clear();
 		for (auto i = title.begin(); i != title.end(); i++)
 		{
 			if (*i != '\r')
@@ -56,11 +57,37 @@ public:
 
 static bool rightOrWrong(std::string mz)
 {
-	for (auto i = mz.end(); i != mz.begin(); i--)
+	for (auto i = mz.end()-1; i != mz.end()-2; i--)
 	{
-		if ((const char)*i == '0')
+		if ((const char)*i == '1')
 			return false;
 		else
 			return true;
 	}
+}
+
+static void secret(std::string mz)
+{
+	for  (auto i=mz.begin(); i!=mz.end()-1; i++)
+	{
+		std::cout << *i;
+	}
+}
+static void getchCin(std::string sa)
+{
+	char sym;
+	do {
+		sym = _getch();
+		std::cout << sym;
+		sa += sym;
+	} while (sym != 13);
+
+	std::string temp = "";
+	for (size_t i = 0; i < sa.size(); i++)
+	{
+		if (sa[i] != '\r')
+			temp += sa[i];
+	}
+	sa = temp;
+	std::cout << "\n";
 }

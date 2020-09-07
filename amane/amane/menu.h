@@ -7,7 +7,9 @@ class Menu
 {
 private:
 	User mt;
-	std::vector<Test> sl;
+	Test sl[32];
+
+	int chrono = 0;
 public:
 	Menu() = default;
 	void entrance();

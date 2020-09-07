@@ -5,7 +5,8 @@ void testNode::printNode()
 	std::cout << question << "\n";
 	for (size_t i = 0; i < 3; i++)
 	{
-		std::cout << options[i] << "\n";
+		secret(options[i]);
+		std::cout << "\n";
 	}
 }
 
@@ -38,10 +39,11 @@ bool testNode::getTruth(const int dv)
 
 void Test::getTested(User ul)
 {
+	int vectorNum = 0;
 	currentMark = 0;
-	onePiece = as.size()/maxMark;
+	onePiece = maxMark / as.size();
 
-	for (size_t i = 1; i!=as.size(); i++)
+	for (size_t i = 0; i!=as.size(); i++)
 	{
 		system("cls");
 
@@ -50,9 +52,23 @@ void Test::getTested(User ul)
 		char mz = _getch();
 		if (mz == '1' || mz == '2' || mz == '3')
 		{
-			if (as[i].truth[static_cast<int>(mz)-48] == true)
+			if (mz == '1')
 			{
-				currentMark += onePiece;
+				if (as[vectorNum].getTruth(0) == true)
+					currentMark += onePiece;
+				vectorNum++;
+			}
+			if (mz == '2')
+			{
+				if (as[vectorNum].getTruth(1) == true)
+					currentMark += onePiece;
+				vectorNum++;
+			}
+			if (mz == '3')
+			{
+				if (as[vectorNum].getTruth(2) == true)
+					currentMark += onePiece;
+				vectorNum++;
 			}
 		}
 		else
@@ -61,47 +77,46 @@ void Test::getTested(User ul)
 		}
 	}
 
+	std::cout << "пользователь " << ul.getLogin() << " получил " << currentMark << " баллов, что является " << currentMark / maxMark * 100
+		<< " процентами от его потенциала в тесте " << title << " по теме " << topic << "\n";
+
 	std::ofstream wr;
 	wr.open("UserStats.txt", std::ios::app);
-	wr << "пользователь" << ul.getLogin() << " получил" << currentMark << " баллов, что является" << currentMark / maxMark * 100
-		<<"процентами от его потенциала в тесте "<<title<<" по теме "<<topic<<"\n";
+	wr << "\nпользователь " << ul.getLogin() << " получил " << currentMark << " баллов, что является " << currentMark / maxMark * 100
+		<<" процентами от его потенциала в тесте "<<title<<" по теме "<<topic<<"\n";
 	wr.close();
+
+	Sleep(6200);
+	system("cls");
 }
 
 void Test::makeTest()
 {
+	testNode toulouse;
+	std::string mari = "";
+	std::cout << "название: ";
+	getchCin(mari);
+	title = mari;
+
+	mari.clear();
+	std::cout << "тема: ";
+	getchCin(mari);
+	topic = mari;
+
 	while (0x29a)
 	{
-		testNode toulouse;
-		std::string mari = "";
-		std::cout << "название: ";
-		std::cin >> mari;
-		title = mari;
-
-		mari = "";
-
-		std::cout << "тема: ";
-		std::cin.get();
-		std::cin >> mari;
-		topic = mari;
-
-		mari = "";
-
+		mari.clear();
 		std::cout << "введите вопрос:\n";
-		std::cin >> mari;
+		getchCin(mari);
 		toulouse.setQuestion(mari);
 
-		for (size_t i = 0; i < 3; i++)
+		for (size_t i = 1; i < 4; i++)
 		{
-			mari = "";
-			mari += (const char)&i;
-			mari += '.';
+			mari.clear();
 
-			std::string temp;
 			std::cout << "введите вариант ответа:\n";
-			std::cin >> temp;
-			mari += temp;
-			toulouse.setOption(mari, i);
+			getchCin(mari);
+			toulouse.setOption(mari, i-1);
 
 			std::cout << "он правильный?.\n1->нет\n0->да\n";
 			char key = _getch();
@@ -109,11 +124,11 @@ void Test::makeTest()
 			{
 			case'1':
 			{
-				toulouse.setTruth(false, i);
+				toulouse.setTruth(false, i-1);
 			}break;
 			case '0':
 			{
-				toulouse.setTruth(true, i);
+				toulouse.setTruth(true, i-1);
 			}break;
 			default:exit(3);
 			}
@@ -127,7 +142,7 @@ void Test::makeTest()
 		{
 			std::ofstream wr;
 			wr.open("TestRoots.txt", std::ios::app);
-			wr << getRoute() << "\n";
+			wr <<"\n" << getRoute();
 			wr.close();
 			return;
 		}break;
@@ -144,14 +159,14 @@ bool Test::saveTest()noexcept
 {
 	std::ofstream wr;
 	wr.open(getRoute());
-	wr << title << "\n";
-	wr << topic << "\n\n";
+	wr << (const char)&title << "\n";
+	wr << (const char)&topic << "\n\n";
 	for (size_t i = 0; i < as.size(); i++)
 	{
-		wr << as[i].getQuestion() << "\n";
-		wr << as[i].getOption(0) << " " << as[i].getTruth(0)<<"\n";
-		wr << as[i].getOption(1) << " " << as[i].getTruth(1) << "\n";
-		wr << as[i].getOption(2) << " " << as[i].getTruth(2) << "\n";
+		wr << (const char)&as[i].getQuestion() << "\n";
+		wr <<"1." << (const char)&as[i].getOption(0) << " " << as[i].getTruth(0)<<"\n";
+		wr <<"2." << (const char)&as[i].getOption(1) << " " << as[i].getTruth(1) << "\n";
+		wr <<"3." << (const char)&as[i].getOption(2) << " " << as[i].getTruth(2) << "\n";
 	}
 
 	wr.close();
@@ -162,43 +177,52 @@ void Test::loadTest(std::string root)
 {
 	int count = 0;
 	int intCount = 0;
+	std::string germ = "";
+
+	testNode temp;
 
 	std::ifstream re;
 	re.open(root);
 	while (!re.eof())
 	{
-		testNode temp;
-
-		std::string germ = "";
+		germ.clear();
 		std::getline(re, germ);
 		
 		if (count == 0)
 			title = germ;
-		if (count == 1)
+		else if (count == 1)
 			topic = germ;
-
-		if (count % 4 == 0)
-		{
-			temp.setQuestion(germ);
-		}
+		else if (count == 2)
+			Sleep(0);
 		else
 		{
-			temp.setOption(germ, intCount);
-
-			if (rightOrWrong(germ) == false)
+			if (count == 3||count==7||count==11||count==15||count==19)
 			{
-				temp.setTruth(false, intCount);
+				temp.setQuestion(germ);
 			}
 			else
 			{
-				temp.setTruth(true, intCount);
-			}
-			intCount++;
-		}
+				temp.setOption(germ, intCount);
 
-		as.push_back(temp);
+				if (rightOrWrong(germ) == false)
+				{
+					temp.setTruth(false, intCount);
+				}
+				else
+				{
+					temp.setTruth(true, intCount);
+				}
+				if (intCount < 2)
+					intCount++;
+				else
+				{
+					intCount = 0;
+					as.push_back(temp);
+				}
+			}
+			
+		}
 		count++;
 	}
-	
 	re.close();
 }

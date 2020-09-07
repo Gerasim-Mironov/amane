@@ -160,7 +160,9 @@
     <ClInclude Include="tests.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="TetsRoots.txt" />
+    <Text Include="blitz_TEST.txt" />
+    <Text Include="lowerMath_TEST.txt" />
+    <Text Include="TestRoots.txt" />
     <Text Include="UserStats.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

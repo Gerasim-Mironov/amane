@@ -1,1 +1,2 @@
-низшая_TEST.txt
+lowerMath_TEST.txt
+blitz_TEST.txt

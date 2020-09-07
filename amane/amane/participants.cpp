@@ -3,6 +3,7 @@
 
 void User::enterLogin()
 {
+	login.clear();
 	std::cout << "Введите логин: ";
 		bool As = false;
 		while (As != true)
@@ -13,11 +14,21 @@ void User::enterLogin()
 			std::cout << key;
 			this->login += key;
 		}
+
+		std::string temp = "";
+		for (size_t i = 0; i < login.size(); i++)
+		{
+			if (login[i] != '\r')
+				temp += login[i];
+		}
+
+		login = temp;
 	std::cout << "\n";
 }
 
 void User::enterPassword()
 {
+	password.clear();
 	std::cout << "Введите пароль: ";
 	bool As = false;
 	while (As != true)
@@ -28,11 +39,21 @@ void User::enterPassword()
 		std::cout << "*";
 		this->password += key;
 	}
+
+	std::string temp = "";
+	for (size_t i = 0; i < password.size(); i++)
+	{
+		if (password[i] != '\r')
+			temp += password[i];
+	}
+
+	password = temp;
 	std::cout << "\n";
 }
 
 void User::enterFIO()
 {
+	fio.clear();
 	std::cout << "Имя и фамилия: ";
 	bool As = false;
 	while (As != true)
@@ -43,11 +64,21 @@ void User::enterFIO()
 		std::cout << key;
 		this->fio += key;
 	}
+
+	std::string temp = "";
+	for (size_t i = 0; i < fio.size(); i++)
+	{
+		if (fio[i] != '\r')
+			temp += fio[i];
+	}
+
+	fio = temp;
 	std::cout << "\n";
 }
 
 void User::enterEmail()
 {
+	email.clear();
 	do {
 		std::cout << "Эл. Почта: ";
 		bool As = false;
@@ -59,12 +90,22 @@ void User::enterEmail()
 			std::cout << key;
 			this->email += key;
 		}
+
+		std::string temp = "";
+		for (size_t i = 0; i < email.size(); i++)
+		{
+			if (email[i] != '\r')
+				temp += email[i];
+		}
+
+		email = temp;
 		std::cout << "\n";
 	} while (this->checkEmail() != true);
 }
 
 void User::enterPNum()
 {
+	pNum.clear();
 	while (this->checkPNum() == false)
 	{
 		std::cout << "номер телефона? ";
@@ -81,6 +122,15 @@ void User::enterPNum()
 			std::cout << key;
 			this->pNum += key;
 		}
+
+		std::string temp = "";
+		for (size_t i = 0; i < pNum.size(); i++)
+		{
+			if (pNum[i] != '\r')
+				temp += pNum[i];
+		}
+
+		pNum = temp;
 		std::cout << "\n";
 	}	
 }
