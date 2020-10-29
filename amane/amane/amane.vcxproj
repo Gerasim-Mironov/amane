@@ -162,6 +162,7 @@
   <ItemGroup>
     <Text Include="lowerMath_TEST.txt" />
     <Text Include="TestRoots.txt" />
+    <Text Include="toulouse.txt" />
     <Text Include="UserStats.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

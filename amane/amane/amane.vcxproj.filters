@@ -55,5 +55,8 @@
     <Text Include="lowerMath_TEST.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
+    <Text Include="toulouse.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
   </ItemGroup>
 </Project>
